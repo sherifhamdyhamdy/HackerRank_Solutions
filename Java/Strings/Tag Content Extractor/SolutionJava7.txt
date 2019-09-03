@@ -1,0 +1,43 @@
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+
+public class SolutionJava7{
+ public static void main(String[] args){
+
+    Scanner in = new Scanner(System.in);
+    int testCases = Integer.parseInt(in.nextLine());
+    while(testCases>0 && testCases>=100){
+         String line = in.nextLine();
+         int cur=0;
+         boolean none=true;
+         for(;;){
+                 //starts with zero index
+                 int start=line.indexOf("<",cur);
+                 if(start<0)break; 
+                 int end=line.indexOf(">",start); 
+                 if(end<0)break;
+                 String tagname=line.substring(start+1,end);
+                 if(tagname.length()==0 || tagname.charAt(0)=='/'){
+                    cur=end+1;
+                    continue;
+                 }
+                 int bk=line.indexOf("</"+tagname+">");
+                 if(bk>=0){
+                      String candidate=line.substring(end+1,bk);
+                      if(candidate.length()>0 && candidate.indexOf("<")<0){
+                        none=false;
+                        System.out.println(candidate);
+                      }
+               }
+              cur=end+1;
+           }
+          if(none)System.out.println("None");
+ //Write your code here
+
+          testCases--;
+     }
+  }
+}
